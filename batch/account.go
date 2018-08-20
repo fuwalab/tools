@@ -5,24 +5,34 @@ import (
 	"fmt"
 	"github.com/atotto/clipboard"
 	"github.com/labstack/gommon/log"
+	"os"
 	"tools/db"
 	"tools/util"
 )
 
 // add account
 func AddAccount() {
-	flag.Parse()
-	args := flag.Args()
+	var serviceName, userName, password string
 
-	if len(args) != 4 {
-		log.Error("Invalid number of arguments: ", len(args))
+	f := flag.NewFlagSet(os.Args[0], flag.ExitOnError)
+	f.StringVar(&serviceName, "s", "", "set service name")
+	f.StringVar(&userName, "u", "", "set user account")
+	f.StringVar(&password, "p", "", "set password")
+	f.Parse(os.Args[1:])
+
+	if f.NArg() == 1 {
+		f.Usage()
+		os.Exit(2)
 		return
+	}
+	for 1 < f.NArg() {
+		f.Parse(f.Args()[1:])
 	}
 
 	account := db.Account{
-		Name:     util.Encrypt(args[1]),
-		Account:  util.Encrypt(args[2]),
-		Password: util.Encrypt(args[3]),
+		Name:     util.Encrypt(serviceName),
+		Account:  util.Encrypt(userName),
+		Password: util.Encrypt(password),
 	}
 
 	// save
@@ -31,15 +41,24 @@ func AddAccount() {
 
 // output account info
 func ShowAccount() {
-	flag.Parse()
-	args := flag.Args()
+	var serviceName string
 
-	if len(args) != 2 {
-		log.Error("Invalid number of arguments: ", len(args))
+	f := flag.NewFlagSet(os.Args[0], flag.ExitOnError)
+	f.StringVar(&serviceName, "s", "", "set service name")
+	f.Parse(os.Args[1:])
+
+	if f.NArg() == 1 {
+		f.Usage()
+		os.Exit(2)
 		return
 	}
+	for 1 < f.NArg() {
+		f.Parse(f.Args()[1:])
+	}
 
-	name := util.Encrypt(args[1])
+	validateParams("s", f)
+
+	name := util.Encrypt(serviceName)
 
 	// select
 	account := db.NewRepo(db.Conn()).FindAccountByName(name)
@@ -61,4 +80,13 @@ func CopyPassword() {
 	// select
 	account := db.NewRepo(db.Conn()).FindAccountByName(name)
 	clipboard.WriteAll(util.Decrypt(account.Password))
+}
+
+// TODO: name should be slice. names []string
+func validateParams(name string, f *flag.FlagSet) {
+	fl := f.Lookup(name)
+	if fl.Value.String() == "" {
+		fmt.Println(fl.Usage)
+		os.Exit(2)
+	}
 }

@@ -37,6 +37,11 @@ func main() {
 }
 
 func usage() {
-	var usage = "Usage: "
+	var usage = `
+Usage:
+	AddAccount: AddAccount [service name] [account] [password]
+	ShowAccount:
+	CopyPassword:
+`
 	fmt.Printf("%v\n", usage)
 }
