@@ -3,9 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/fuwalab/tools/batch"
+	"github.com/fuwalab/tools/db"
 	"github.com/labstack/gommon/log"
-	"tools/batch"
-	"tools/db"
 )
 
 func main() {

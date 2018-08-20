@@ -10,6 +10,18 @@
   revision = "5e2c7bddca04488284428a201e4a15615f7a5074"
 
 [[projects]]
+  branch = "master"
+  digest = "1:1a3a98a5e8430952e528497c7742a3e8d510c08ba617f5a31b114846bc54f556"
+  name = "github.com/fuwalab/tools"
+  packages = [
+    "batch",
+    "db",
+    "util",
+  ]
+  pruneopts = "UT"
+  revision = "6c1b3e4ee83125b0cfdea5018cad6d91344930b9"
+
+[[projects]]
   digest = "1:faee5b9f53eb1ae4eb04708c040c8c4dd685ce46509671e57a08520a15c54368"
   name = "github.com/labstack/gommon"
   packages = [
@@ -73,6 +85,9 @@
   analyzer-version = 1
   input-imports = [
     "github.com/atotto/clipboard",
+    "github.com/fuwalab/tools/batch",
+    "github.com/fuwalab/tools/db",
+    "github.com/fuwalab/tools/util",
     "github.com/labstack/gommon/log",
     "github.com/mattn/go-sqlite3",
   ]
