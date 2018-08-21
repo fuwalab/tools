@@ -3,9 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/fuwalab/tools/batch"
-	"github.com/fuwalab/tools/db"
 	"github.com/labstack/gommon/log"
+	"tools/batch"
+	"tools/db"
 )
 
 func main() {
@@ -37,6 +37,11 @@ func main() {
 }
 
 func usage() {
-	var usage = "Usage: "
+	var usage = `
+Usage:
+	AddAccount: AddAccount [service name] [account] [password]
+	ShowAccount:
+	CopyPassword:
+`
 	fmt.Printf("%v\n", usage)
 }
