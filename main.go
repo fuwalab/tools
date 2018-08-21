@@ -43,6 +43,7 @@ func usage() {
   ShowAccount: Show account/user name of a particular service.
 	Run "ShowAccount -h" for more detail.
   CopyPassword: Copy password of the particular service to clipboard.
-	Run "CopyPassword -h" for more detail.`
-	fmt.Printf("%v\n", usage)
+	Run "CopyPassword -h" for more detail.
+`
+	fmt.Printf("%v", usage)
 }
