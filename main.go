@@ -5,8 +5,13 @@ import (
 	"fmt"
 	"github.com/labstack/gommon/log"
 	"tools/batch"
+	"tools/conf"
 	"tools/db"
 )
+
+func init() {
+	conf.SetEnv("local")
+}
 
 func main() {
 	flag.Parse()

@@ -2,20 +2,24 @@ package db
 
 import (
 	"database/sql"
+	"fmt"
 	"github.com/labstack/gommon/log"
 	_ "github.com/mattn/go-sqlite3"
+	"tools/conf"
 )
 
 type Repo struct {
 	db *sql.DB
 }
 
+var config = conf.GetAppConf()
+
 func NewRepo(conn *sql.DB) *Repo {
 	return &Repo{db: conn}
 }
 
 func Conn() *sql.DB {
-	db, err := sql.Open("sqlite3", "./account.db")
+	db, err := sql.Open("sqlite3", fmt.Sprintf("./%s.db", config.DBName))
 	if err != nil {
 		panic(err)
 	}
