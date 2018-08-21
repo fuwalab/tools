@@ -7,6 +7,7 @@ type AppConf struct {
 	DBName string
 }
 
+// get application setting
 func GetAppConf() AppConf {
 	var env = os.Getenv("env")
 
@@ -30,6 +31,7 @@ func getTestConf() AppConf {
 	return AppConf{Env: "test", DBName: "test_account"}
 }
 
+// set application environment
 func SetEnv(env string) {
 	os.Setenv("env", env)
 }
