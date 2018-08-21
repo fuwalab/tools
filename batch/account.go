@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/atotto/clipboard"
+	"github.com/labstack/gommon/log"
 	"os"
 	"tools/db"
 	"tools/util"
@@ -70,7 +71,11 @@ func ShowAccount() {
 	name := util.Encrypt(serviceName)
 
 	// select
-	account := db.NewRepo(db.Conn()).FindAccountByName(name)
+	account, err := db.NewRepo(db.Conn()).FindAccountByName(name)
+	if err != nil {
+		log.Error(err)
+		return
+	}
 	fmt.Println(util.Decrypt(account.Account))
 }
 
@@ -99,7 +104,11 @@ func CopyPassword() {
 	name := util.Encrypt(serviceName)
 
 	// select
-	account := db.NewRepo(db.Conn()).FindAccountByName(name)
+	account, err := db.NewRepo(db.Conn()).FindAccountByName(name)
+	if err != nil {
+		log.Error(err)
+		return
+	}
 	clipboard.WriteAll(util.Decrypt(account.Password))
 }
 
