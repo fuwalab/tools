@@ -66,8 +66,8 @@ func (r *Repo) Save(account Account) {
 		log.Info("update")
 		log.Info("account: ", account)
 		_, err := r.db.Exec(
-			"UPDATE account SET name = ?, account = ?, password = ? WHERE name = ?",
-			&account.Name, &account.Account, &account.Password, &account.Name,
+			"UPDATE account SET account = ?, password = ? WHERE name = ?",
+			&account.Account, &account.Password, &account.Name,
 		)
 		if err != nil {
 			panic(err)
@@ -76,16 +76,10 @@ func (r *Repo) Save(account Account) {
 }
 
 // retrieve row by name
-func (r *Repo) FindAccountByName(name string) *Account {
+func (r *Repo) FindAccountByName(name string) (*Account, error) {
 	var account Account
 	row := r.db.QueryRow("SELECT * FROM account WHERE name = ?", &name)
 	err := row.Scan(&account.Name, &account.Account, &account.Password)
 
-	if err != nil {
-		if err == sql.ErrNoRows {
-			return nil
-		}
-		panic(err)
-	}
-	return &account
+	return &account, err
 }
