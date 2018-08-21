@@ -37,11 +37,12 @@ func main() {
 }
 
 func usage() {
-	var usage = `
-Usage:
-	AddAccount: AddAccount [service name] [account] [password]
-	ShowAccount:
-	CopyPassword:
-`
+	var usage = `Usage:
+  AddAccount: Add a new account information.
+	Run "AddAccount -h" for more detail.
+  ShowAccount: Show account/user name of a particular service.
+	Run "ShowAccount -h" for more detail.
+  CopyPassword: Copy password of the particular service to clipboard.
+	Run "CopyPassword -h" for more detail.`
 	fmt.Printf("%v\n", usage)
 }
