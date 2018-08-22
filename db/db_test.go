@@ -29,3 +29,13 @@ func TestRepo_InitDB(t *testing.T) {
 		t.Errorf("%v", err)
 	}
 }
+
+// TODO:
+func TestRepo_Save(t *testing.T) {
+
+}
+
+// TODO:
+func TestRepo_FindAccountByName(t *testing.T) {
+
+}
