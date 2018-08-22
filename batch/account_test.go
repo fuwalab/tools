@@ -8,11 +8,8 @@ import (
 	"tools/conf"
 )
 
-func init() {
-	conf.SetEnv("test")
-}
-
 func TestMain(m *testing.M) {
+	conf.SetEnv("test")
 	code := m.Run()
 
 	config := conf.GetAppConf()
@@ -23,7 +20,6 @@ func TestMain(m *testing.M) {
 }
 
 func TestAddAccount(t *testing.T) {
-	fmt.Printf("env: %v\n", os.Getenv("env"))
 	cmd := exec.Command("go",
 		"run", "../main.go",
 		"AddAccount",
@@ -31,19 +27,20 @@ func TestAddAccount(t *testing.T) {
 		"-u", "hoge_user",
 		"-p", "password",
 	)
-	result, err := cmd.CombinedOutput()
+	err := cmd.Run()
 	if err != nil {
-		fmt.Printf("hoge: %v\n", err)
+		t.Errorf("commandline error: %v", err)
 	}
-	fmt.Printf("result: %v\n", string(result))
+
+	// TODO: check it will be raised error if there is a missing parameter
 }
 
 func TestShowAccount(t *testing.T) {
-	fmt.Printf("env: %v\n", os.Getenv("env"))
 	cmd := exec.Command("go", "run", "../main.go", "ShowAccount", "-s", "sample")
-	result, err := cmd.CombinedOutput()
+	err := cmd.Run()
 	if err != nil {
-		fmt.Printf("hoge: %v\n", err)
+		t.Errorf("commandline error: %v", err)
 	}
-	fmt.Printf("result: %v\n", string(result))
+
+	// TODO: check it will be raised error if there is a missing parameter
 }
