@@ -19,7 +19,7 @@ func NewRepo(conn *sql.DB) *Repo {
 }
 
 func Conn() *sql.DB {
-	db, err := sql.Open("sqlite3", fmt.Sprintf("./%s.db", config.DBName))
+	db, err := sql.Open("sqlite3", fmt.Sprintf("%s/%s.db", config.ProjectRoot, config.DBName))
 	if err != nil {
 		panic(err)
 	}
