@@ -42,7 +42,7 @@ func TestUsage(t *testing.T) {
 
 	if actualJson.Message != expectedJson.Message {
 		t.Error("Got different centences.")
-		t.Errorf("actual\n%v", actual)
-		t.Errorf("expected\n%v", expected)
+		t.Errorf("actual\n%v", actualJson.Message)
+		t.Errorf("expected\n%v", expectedJson.Message)
 	}
 }
