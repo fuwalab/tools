@@ -1,6 +1,7 @@
 package db
 
 import (
+	"database/sql"
 	"fmt"
 	"os"
 	"testing"
@@ -9,10 +10,10 @@ import (
 
 func init() {
 	conf.SetEnv("test")
-	config = conf.GetAppConf()
 }
 
 func TestMain(m *testing.M) {
+	config = conf.GetAppConf()
 	code := m.Run()
 
 	if err := os.Remove(fmt.Sprintf("%s/%s.db", config.ProjectRoot, config.DBName)); err != nil {
@@ -30,12 +31,32 @@ func TestRepo_InitDB(t *testing.T) {
 	}
 }
 
-// TODO:
 func TestRepo_Save(t *testing.T) {
-
+	account := Account{
+		Name:     "test",
+		Account:  "hoge_user",
+		Password: "password",
+	}
+	NewRepo(Conn()).Save(account)
 }
 
-// TODO:
 func TestRepo_FindAccountByName(t *testing.T) {
+	account, _ := NewRepo(Conn()).FindAccountByName("test")
 
+	expected := Account{
+		Name:     "test",
+		Account:  "hoge_user",
+		Password: "password",
+	}
+
+	if *account != expected {
+		t.Errorf("got unexpected account type.\nactual: %v, expected: %v", account, expected)
+	}
+
+	// failing test
+	account, err := NewRepo(Conn()).FindAccountByName("tes")
+
+	if err != sql.ErrNoRows {
+		t.Errorf("got unexpected error.\nactual: %v, expected: %v", err, sql.ErrNoRows)
+	}
 }

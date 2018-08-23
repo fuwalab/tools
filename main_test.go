@@ -4,12 +4,14 @@ import (
 	"encoding/json"
 	"os/exec"
 	"testing"
+	"tools/conf"
 )
 
 func TestUsage(t *testing.T) {
+	config := conf.GetAppConf()
 	// no argument
 	cmd := exec.Command("go",
-		"run", "main.go",
+		"run", config.ProjectRoot+"/main.go",
 	)
 	result, _ := cmd.CombinedOutput()
 
@@ -28,7 +30,6 @@ func TestUsage(t *testing.T) {
 	)
 	result, _ = cmd.CombinedOutput()
 
-	actual = string(result)
 	expected = `{"time":"2018-08-23T02:21:03.812357433+09:00","level":"INFO","prefix":"-","file":"main.go","line":"40","message":"subcommand DoSomething is not exist"}`
 
 	type LogInfo struct {
@@ -37,7 +38,7 @@ func TestUsage(t *testing.T) {
 
 	var actualJson, expectedJson LogInfo
 
-	json.Unmarshal([]byte(actual), &actualJson)
+	json.Unmarshal(result, &actualJson)
 	json.Unmarshal([]byte(expected), &expectedJson)
 
 	if actualJson.Message != expectedJson.Message {

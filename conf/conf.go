@@ -9,7 +9,7 @@ type AppConf struct {
 }
 
 // get application setting
-func GetAppConf() AppConf {
+func GetAppConf() *AppConf {
 	var env = os.Getenv("env")
 
 	switch env {
@@ -23,13 +23,13 @@ func GetAppConf() AppConf {
 }
 
 // local environment
-func getLocalConf() AppConf {
-	return AppConf{Env: "local", DBName: "account", ProjectRoot: getProjectRoot()}
+func getLocalConf() *AppConf {
+	return &AppConf{Env: "local", DBName: "account", ProjectRoot: getProjectRoot()}
 }
 
 // test environment
-func getTestConf() AppConf {
-	return AppConf{Env: "test", DBName: "test_account", ProjectRoot: getProjectRoot()}
+func getTestConf() *AppConf {
+	return &AppConf{Env: "test", DBName: "test_account", ProjectRoot: getProjectRoot()}
 }
 
 // set application environment

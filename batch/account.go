@@ -107,6 +107,7 @@ func CopyPassword() {
 	account, err := db.NewRepo(db.Conn()).FindAccountByName(name)
 	if err != nil {
 		log.Error(err)
+		os.Exit(2)
 		return
 	}
 	clipboard.WriteAll(util.Decrypt(account.Password))

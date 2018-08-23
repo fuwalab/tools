@@ -51,7 +51,7 @@ func (r *Repo) Save(account Account) {
 	var a Account
 	row := r.db.QueryRow(
 		"SELECT * FROM account WHERE name = ?", &account.Name)
-	err := row.Scan(&a.Name, &a.Password)
+	err := row.Scan(&a.Name, &a.Account, &a.Password)
 
 	log.Info("error:", err)
 
