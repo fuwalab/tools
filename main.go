@@ -5,15 +5,20 @@ import (
 	"fmt"
 	"github.com/labstack/gommon/log"
 	"tools/batch"
+	"tools/conf"
 	"tools/db"
 )
+
+func init() {
+	conf.SetEnv("local")
+}
 
 func main() {
 	flag.Parse()
 	args := flag.Args()
 
 	if len(args) == 0 {
-		usage()
+		fmt.Print(usage())
 		return
 	}
 
@@ -36,8 +41,8 @@ func main() {
 	}
 }
 
-func usage() {
-	var usage = `Usage:
+func usage() string {
+	return `Usage:
   AddAccount: Add a new account information.
 	Run "AddAccount -h" for more detail.
   ShowAccount: Show account/user name of a particular service.
@@ -45,5 +50,4 @@ func usage() {
   CopyPassword: Copy password of the particular service to clipboard.
 	Run "CopyPassword -h" for more detail.
 `
-	fmt.Printf("%v", usage)
 }

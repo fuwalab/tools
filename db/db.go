@@ -2,20 +2,24 @@ package db
 
 import (
 	"database/sql"
+	"fmt"
 	"github.com/labstack/gommon/log"
 	_ "github.com/mattn/go-sqlite3"
+	"tools/conf"
 )
 
 type Repo struct {
 	db *sql.DB
 }
 
+var config = conf.GetAppConf()
+
 func NewRepo(conn *sql.DB) *Repo {
 	return &Repo{db: conn}
 }
 
 func Conn() *sql.DB {
-	db, err := sql.Open("sqlite3", "./account.db")
+	db, err := sql.Open("sqlite3", fmt.Sprintf("%s/%s.db", config.ProjectRoot, config.DBName))
 	if err != nil {
 		panic(err)
 	}
@@ -47,7 +51,7 @@ func (r *Repo) Save(account Account) {
 	var a Account
 	row := r.db.QueryRow(
 		"SELECT * FROM account WHERE name = ?", &account.Name)
-	err := row.Scan(&a.Name, &a.Password)
+	err := row.Scan(&a.Name, &a.Account, &a.Password)
 
 	log.Info("error:", err)
 
