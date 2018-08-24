@@ -1,0 +1,16 @@
+languages: go
+sudo: false
+
+go:
+  - 1.9.x
+  - 1.10.x
+
+before_install:
+  - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+  - mv $HOME/build/fuwalab $GOPATH/src/
+
+install:
+  - $GOPATH/bin/dep ensure
+
+script:
+  - go test -v ./...
