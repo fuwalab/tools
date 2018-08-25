@@ -1,3 +1,4 @@
+// Package conf contains configurations of toolkit
 package conf
 
 import "os"

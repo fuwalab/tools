@@ -1,3 +1,4 @@
+// Package command contains all commands of toolkit.
 package command
 
 import (
