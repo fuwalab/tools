@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/labstack/gommon/log"
-	"tools/batch"
+	"tools/command"
 	"tools/conf"
 	"tools/db"
 )
@@ -23,18 +23,18 @@ func main() {
 	}
 
 	subCommands := map[string]func(){
-		"AddAccount":   batch.Add,
-		"ShowAccount":  batch.Show,
-		"CopyPassword": batch.CopyPassword,
+		"AddAccount":   command.Add,
+		"ShowAccount":  command.Show,
+		"CopyPassword": command.CopyPassword,
 	}
 
-	command := args[0]
+	c := args[0]
 
-	if _, ok := subCommands[command]; ok {
-		log.Info("Executing ", command)
+	if _, ok := subCommands[c]; ok {
+		log.Info("Executing ", c)
 		db.NewRepo(db.Conn()).InitDB()
 
-		f := subCommands[command]
+		f := subCommands[c]
 		f()
 	} else {
 		log.Info("subcommand ", args[0], " is not exist")
