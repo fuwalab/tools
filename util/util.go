@@ -14,7 +14,7 @@ var commonIV = hashed[:]
 // cipher key
 var keyString = "tqax/vkLME-CjEP3##u/rVLi),XNGrZ-"
 
-// encrypt
+// Encrypt encrypt string
 func Encrypt(s string) string {
 	plaintext := []byte(s)
 
@@ -31,7 +31,7 @@ func Encrypt(s string) string {
 	return fmt.Sprintf("%x", cipherText)
 }
 
-// decrypt
+// Decrypt decrypt string
 func Decrypt(s string) string {
 	c, err := aes.NewCipher([]byte(keyString))
 	if err != nil {

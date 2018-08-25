@@ -46,7 +46,7 @@ type Account struct {
 	Password string
 }
 
-// save account
+// Save save account
 func (r *Repo) Save(account Account) {
 	var a Account
 	row := r.db.QueryRow(
@@ -79,7 +79,7 @@ func (r *Repo) Save(account Account) {
 	}
 }
 
-// retrieve row by name
+// FindAccountByName retrieve row by name
 func (r *Repo) FindAccountByName(name string) (*Account, error) {
 	var account Account
 	row := r.db.QueryRow("SELECT * FROM account WHERE name = ?", &name)

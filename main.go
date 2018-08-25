@@ -23,8 +23,8 @@ func main() {
 	}
 
 	subCommands := map[string]func(){
-		"AddAccount":   batch.AddAccount,
-		"ShowAccount":  batch.ShowAccount,
+		"AddAccount":   batch.Add,
+		"ShowAccount":  batch.Show,
 		"CopyPassword": batch.CopyPassword,
 	}
 

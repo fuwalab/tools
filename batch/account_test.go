@@ -22,7 +22,7 @@ func TestMain(m *testing.M) {
 	os.Exit(code)
 }
 
-func TestAddAccount(t *testing.T) {
+func TestAdd(t *testing.T) {
 	cmd := exec.Command("go",
 		"run", config.ProjectRoot+"/main.go",
 		"AddAccount",
@@ -48,7 +48,7 @@ func TestAddAccount(t *testing.T) {
 	}
 }
 
-func TestShowAccount(t *testing.T) {
+func TestShow(t *testing.T) {
 	cmd := exec.Command("go", "run", config.ProjectRoot+"/main.go", "ShowAccount", "-s", "sample")
 	err := cmd.Run()
 	if err != nil {
@@ -67,8 +67,8 @@ func TestShowAccount(t *testing.T) {
 }
 
 func TestCopyPassword(t *testing.T) {
-	// Note: Not sure why it requires `TestAddAccount()` again for Travis CI.
-	TestAddAccount(t)
+	// Note: Not sure why it requires `TestAdd()` again for Travis CI.
+	TestAdd(t)
 	expected := "password"
 	cmd := exec.Command("go", "run", config.ProjectRoot+"/main.go", "CopyPassword", "-s", "sample")
 	result, err := cmd.CombinedOutput()
