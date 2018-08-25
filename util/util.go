@@ -1,3 +1,4 @@
+//Package util contains utilities of toolkit like encrypting, decrypting and so on.
 package util
 
 import (

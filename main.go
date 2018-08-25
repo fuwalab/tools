@@ -1,3 +1,7 @@
+// Package main contains toolkit that may be needed.
+//
+// This tool has the following sub command so far.
+// AddAccount, ShowAccount, CopyPassword
 package main
 
 import (
