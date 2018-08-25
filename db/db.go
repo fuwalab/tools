@@ -4,20 +4,17 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/labstack/gommon/log"
-	_ "github.com/mattn/go-sqlite3"
 	"tools/conf"
 )
 
+// Repo database connection
 type Repo struct {
 	db *sql.DB
 }
 
 var config = conf.GetAppConf()
 
-func NewRepo(conn *sql.DB) *Repo {
-	return &Repo{db: conn}
-}
-
+// Conn create a new connection
 func Conn() *sql.DB {
 	db, err := sql.Open("sqlite3", fmt.Sprintf("%s/%s.db", config.ProjectRoot, config.DBName))
 	if err != nil {
@@ -27,6 +24,12 @@ func Conn() *sql.DB {
 	return db
 }
 
+// NewRepo create a new repository interface.
+func NewRepo(conn *sql.DB) *Repo {
+	return &Repo{db: conn}
+}
+
+// InitDB initialize database
 func (r *Repo) InitDB() {
 	_, err := r.db.Exec(
 		"CREATE TABLE IF NOT EXISTS `account` ( " +
@@ -40,6 +43,7 @@ func (r *Repo) InitDB() {
 	}
 }
 
+// Account account information
 type Account struct {
 	Name     string
 	Account  string
