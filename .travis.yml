@@ -5,13 +5,12 @@ go:
 
 before_install:
   #- curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-  - mkdir $GOPATH/src/github.com
-  - mv $HOME/build/ $GOPATH/src/github.com/
+  #- mv $HOME/build/fuwalab $GOPATH/src/
 
 install:
   #- $GOPATH/bin/dep ensure -update
   - go get github.com/atotto/clipboard/...
-  - go get -t ./...
+  - mv $HOME/build $GOPATH/src/github.com/
 
 script:
   - go test -v ./...
