@@ -7,11 +7,11 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/fuwalab/tools/command"
+	"github.com/fuwalab/tools/conf"
+	"github.com/fuwalab/tools/db"
 	"github.com/labstack/gommon/log"
 	_ "github.com/mattn/go-sqlite3"
-	"tools/command"
-	"tools/conf"
-	"tools/db"
 )
 
 func init() {

@@ -25,7 +25,7 @@ func TestGetAppConf(t *testing.T) {
 		DBName: "test_account",
 	}
 
-	expectedProjectRootContains := "/src/tools"
+	expectedProjectRootContains := "/src/github.com/fuwalab/tools"
 
 	if config.DBName != expected.DBName {
 		t.Errorf("Not same DBName.\nactual: %v, expected: %v", config.DBName, expected.DBName)

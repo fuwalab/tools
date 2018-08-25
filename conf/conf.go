@@ -43,9 +43,9 @@ func SetEnv(env string) {
 func getProjectRoot() (path string) {
 	goPath := os.Getenv("GOPATH")
 	if goPath == "" {
-		path = os.Getenv("HOME") + "/go/src/tools"
+		path = os.Getenv("HOME") + "/go/src/github.com/fuwalab/tools"
 	} else {
-		path = goPath + "/src/tools"
+		path = goPath + "/src/github.com/fuwalab/tools"
 	}
 	return
 }

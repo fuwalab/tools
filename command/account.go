@@ -5,10 +5,10 @@ import (
 	"flag"
 	"fmt"
 	"github.com/atotto/clipboard"
+	"github.com/fuwalab/tools/db"
+	"github.com/fuwalab/tools/util"
 	"github.com/labstack/gommon/log"
 	"os"
-	"tools/db"
-	"tools/util"
 )
 
 // Add add account

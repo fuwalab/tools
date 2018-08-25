@@ -3,10 +3,10 @@ package db
 import (
 	"database/sql"
 	"fmt"
+	"github.com/fuwalab/tools/conf"
 	_ "github.com/mattn/go-sqlite3"
 	"os"
 	"testing"
-	"tools/conf"
 )
 
 func init() {
