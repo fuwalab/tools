@@ -3,10 +3,10 @@ package command
 import (
 	"fmt"
 	"github.com/atotto/clipboard"
+	"github.com/fuwalab/tools/conf"
 	"os"
 	"os/exec"
 	"testing"
-	"tools/conf"
 )
 
 var config *conf.AppConf

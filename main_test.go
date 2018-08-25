@@ -2,9 +2,9 @@ package main
 
 import (
 	"encoding/json"
+	"github.com/fuwalab/tools/conf"
 	"os/exec"
 	"testing"
-	"tools/conf"
 )
 
 func TestUsage(t *testing.T) {
@@ -42,7 +42,7 @@ func TestUsage(t *testing.T) {
 	json.Unmarshal([]byte(expected), &expectedJSON)
 
 	if actualJSON.Message != expectedJSON.Message {
-		t.Error("Got different centences.")
+		t.Error("Got different sentences.")
 		t.Errorf("actual\n%v", actualJSON.Message)
 		t.Errorf("expected\n%v", expectedJSON.Message)
 	}

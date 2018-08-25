@@ -4,8 +4,8 @@ package db
 import (
 	"database/sql"
 	"fmt"
+	"github.com/fuwalab/tools/conf"
 	"github.com/labstack/gommon/log"
-	"tools/conf"
 )
 
 // Repo database connection

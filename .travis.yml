@@ -4,13 +4,11 @@ go:
   - "1.10.x"
 
 before_install:
-  #- curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-  - mv $HOME/build/fuwalab $GOPATH/src/
 
 install:
-  #- $GOPATH/bin/dep ensure -update
-  - go get github.com/atotto/clipboard/...
   - go get -t ./...
+  - rm -rf $GOPATH/src/github.com/fuwalab
+  - cp -r $HOME/build/fuwalab $GOPATH/src/github.com/
 
 script:
   - go test -v ./...
