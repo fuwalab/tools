@@ -55,7 +55,7 @@ func TestRepo_FindAccountByName(t *testing.T) {
 	}
 
 	// failing test
-	account, err := NewRepo(Conn()).FindAccountByName("tes")
+	_, err := NewRepo(Conn()).FindAccountByName("tes")
 
 	if err != sql.ErrNoRows {
 		t.Errorf("got unexpected error.\nactual: %v, expected: %v", err, sql.ErrNoRows)
