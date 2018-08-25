@@ -2,13 +2,14 @@ package conf
 
 import "os"
 
+// AppConf Configuration of this project.
 type AppConf struct {
 	Env         string
 	DBName      string
 	ProjectRoot string
 }
 
-// get application setting
+// GetAppConf get application setting
 func GetAppConf() *AppConf {
 	var env = os.Getenv("env")
 
@@ -32,7 +33,7 @@ func getTestConf() *AppConf {
 	return &AppConf{Env: "test", DBName: "test_account", ProjectRoot: getProjectRoot()}
 }
 
-// set application environment
+// SetEnv set application environment
 func SetEnv(env string) {
 	os.Setenv("env", env)
 }

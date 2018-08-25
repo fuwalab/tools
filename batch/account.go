@@ -10,8 +10,8 @@ import (
 	"tools/util"
 )
 
-// add account
-func AddAccount() {
+// Add add account
+func Add() {
 	var serviceName, userName, password string
 	var params = []string{
 		"s",
@@ -46,8 +46,8 @@ func AddAccount() {
 	db.NewRepo(db.Conn()).Save(account)
 }
 
-// output account info
-func ShowAccount() {
+// Show output account info
+func Show() {
 	var serviceName string
 	var params = []string{
 		"s",
@@ -79,7 +79,7 @@ func ShowAccount() {
 	fmt.Println(util.Decrypt(account.Account))
 }
 
-// copy password to clipboard
+// CopyPassword copy password to clipboard
 func CopyPassword() {
 	var serviceName string
 	var params = []string{
