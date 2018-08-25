@@ -36,14 +36,14 @@ func TestUsage(t *testing.T) {
 		Message string `json:"message"`
 	}
 
-	var actualJson, expectedJson LogInfo
+	var actualJSON, expectedJSON LogInfo
 
-	json.Unmarshal(result, &actualJson)
-	json.Unmarshal([]byte(expected), &expectedJson)
+	json.Unmarshal(result, &actualJSON)
+	json.Unmarshal([]byte(expected), &expectedJSON)
 
-	if actualJson.Message != expectedJson.Message {
+	if actualJSON.Message != expectedJSON.Message {
 		t.Error("Got different centences.")
-		t.Errorf("actual\n%v", actualJson.Message)
-		t.Errorf("expected\n%v", expectedJson.Message)
+		t.Errorf("actual\n%v", actualJSON.Message)
+		t.Errorf("expected\n%v", expectedJSON.Message)
 	}
 }
