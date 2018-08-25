@@ -5,7 +5,8 @@ go:
 
 before_install:
   #- curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-  - mv $HOME/build/fuwalab $GOPATH/src/github.com/fuwalab/
+  - mkdir $GOPATH/src/github.com
+  - mv $HOME/build/ $GOPATH/src/github.com/
 
 install:
   #- $GOPATH/bin/dep ensure -update
