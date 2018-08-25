@@ -4,8 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/labstack/gommon/log"
-	// sqlite driver
-	_ "github.com/mattn/go-sqlite3"
 	"tools/conf"
 )
 
