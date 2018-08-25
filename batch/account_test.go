@@ -67,6 +67,7 @@ func TestShowAccount(t *testing.T) {
 }
 
 func TestCopyPassword(t *testing.T) {
+	// Note: Not sure why it requires `TestAddAccount()` again for Travis CI.
 	TestAddAccount(t)
 	expected := "password"
 	cmd := exec.Command("go", "run", config.ProjectRoot+"/main.go", "CopyPassword", "-s", "sample")
