@@ -1,0 +1,19 @@
+languages: go
+
+go:
+  - "1.10.x"
+
+before_install:
+  #- curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+  - mv $HOME/build/fuwalab $GOPATH/src/
+
+install:
+  #- $GOPATH/bin/dep ensure -update
+  - go get github.com/atotto/clipboard/...
+  - go get -t ./...
+
+script:
+  - go test -v ./...
+
+notifications:
+  email: false
