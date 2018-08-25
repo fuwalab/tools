@@ -9,6 +9,7 @@ install:
   - go get -t ./...
   - rm -rf $GOPATH/src/github.com/fuwalab
   - cp -r $HOME/build/fuwalab $GOPATH/src/github.com/
+  - mv $HOME/build/fuwalab $GOPATH/src/
 
 script:
   - go test -v ./...
