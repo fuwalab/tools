@@ -4,11 +4,12 @@ go:
   - "1.10.x"
 
 before_install:
+  - mv $HOME/build/fuwalab $GOPATH/src/
 
 install:
   - go get -t ./...
-  - rm -rf $GOPATH/src/github.com/fuwalab
-  - cp -r $HOME/build/fuwalab $GOPATH/src/github.com/
+  - rm -rf $GOPATH/src/github.com/fuwalab/*
+  - cp -r $GOPATH/src/tools $GOPATH/src/github.com/fuwalab/
 
 script:
   - go test -v ./...
