@@ -7,7 +7,7 @@
 # tools
 
 ## Overview
-Toolkit that may need.
+Toolkit that may be needed.
  
 ## Features
 ### Sub Commands
@@ -27,7 +27,8 @@ This tool has the following `sub command`.
 #### git clone
 Need to clone this repository on go source directory.
 ```bash
-$ cd $GOPATH/src
+$ mkdir $GOPATH/src/github.com
+$ cd $GOPATH/src/github.com
 $ git clone git@github.com:fuwalab/tools.git
 ```
 
@@ -47,13 +48,13 @@ $ git clone git@github.com:fuwalab/tools.git
 #### Build
 ```bash
 $ cd $GOPATH
-$ go build -o bin/tools tools
+$ go build -o bin/tools github.com/fuwalab/tools
 ```
 
 ### Usage
 ### How to run?
 ```bash
-$ $GOPATH/bin/tools [subcommand] [options...]
+$ $GOPATH/bin/tools subcommand [options...]
 ```
 
 #### Usage
