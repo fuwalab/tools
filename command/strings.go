@@ -8,6 +8,7 @@ import (
 	"os"
 )
 
+// String string related command
 func String() {
 	// check parameters
 	var plaintText, cipherText string
