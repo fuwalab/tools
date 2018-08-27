@@ -31,12 +31,12 @@ func main() {
 		"AddAccount":   command.Add,
 		"ShowAccount":  command.Show,
 		"CopyPassword": command.CopyPassword,
+		"String":       command.String,
 	}
 
 	c := args[0]
 
 	if _, ok := subCommands[c]; ok {
-		log.Info("Executing ", c)
 		db.NewRepo(db.Conn()).InitDB()
 
 		f := subCommands[c]
@@ -54,5 +54,7 @@ func usage() string {
 	Run "ShowAccount -h" for more detail.
   CopyPassword: Copy password of the particular service to clipboard.
 	Run "CopyPassword -h" for more detail.
+  String: Show encrypted/decrypted string
+	Run "String -h" for more detail.
 `
 }
