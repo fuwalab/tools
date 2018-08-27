@@ -9,6 +9,8 @@ branches:
 
 before_install:
   - mv $HOME/build/fuwalab $GOPATH/src/
+  - mkdir -p $GOPATH/src/github.com/fuwalab
+  - cp -r $GOPATH/src/tools $GOPATH/src/github.com/fuwalab/
 
 install:
   - go get -t ./...

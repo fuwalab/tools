@@ -23,6 +23,10 @@ This tool has the following `sub command`.
 1. CopyPassword
     - Able to copy password into clipboard
     
+1. String
+    - Able to encrypt plain text
+    - Able to decrypt cipher text
+
 ### Installation
 #### git clone
 Need to clone this repository on go source directory.
