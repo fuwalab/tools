@@ -38,7 +38,7 @@ func TestRepo_Save(t *testing.T) {
 		Account:  "hoge_user",
 		Password: "password",
 	}
-	NewRepo(Conn()).Save(account)
+	NewRepo(Conn()).Save(&account)
 }
 
 func TestRepo_FindAccountByName(t *testing.T) {

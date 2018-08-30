@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/atotto/clipboard"
 	"github.com/fuwalab/tools/conf"
+	_ "github.com/mattn/go-sqlite3"
 	"os"
 	"os/exec"
 	"testing"
@@ -23,32 +24,22 @@ func TestMain(m *testing.M) {
 }
 
 func TestAdd(t *testing.T) {
-	cmd := exec.Command("go",
-		"run", config.ProjectRoot+"/main.go",
+	params := []string{
 		"AddAccount",
 		"-s", "sample",
 		"-u", "test_user",
-		"-p", "password",
-	)
-	err := cmd.Run()
-	if err != nil {
-		t.Errorf("commandline error: %v", err)
 	}
 
-	// check it will be raised error if there is a missing parameter
-	cmd = exec.Command("go",
-		"run", config.ProjectRoot+"/main.go",
-		"AddAccount",
-		"-s", "sample",
-		"-u", "test_user",
-	)
-	err = cmd.Run()
-	if err == nil {
-		t.Errorf("commandline error: %v", err)
-	}
+	os.Setenv("test_password", "password")
+	Add(params...)
 }
 
 func TestShow(t *testing.T) {
+	params := []string{
+		"ShowAccount",
+		"-s", "sample",
+	}
+	Show(params...)
 	cmd := exec.Command("go", "run", config.ProjectRoot+"/main.go", "ShowAccount", "-s", "sample")
 	err := cmd.Run()
 	if err != nil {

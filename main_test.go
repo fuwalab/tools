@@ -3,9 +3,19 @@ package main
 import (
 	"encoding/json"
 	"github.com/fuwalab/tools/conf"
+	"github.com/fuwalab/tools/db"
+	"os"
 	"os/exec"
 	"testing"
 )
+
+func TestMain(m *testing.M) {
+	conf.SetEnv("test")
+	db.NewRepo(db.Conn()).InitDB()
+	code := m.Run()
+
+	os.Exit(code)
+}
 
 func TestUsage(t *testing.T) {
 	config := conf.GetAppConf()
@@ -19,7 +29,7 @@ func TestUsage(t *testing.T) {
 	expected := usage()
 
 	if actual != expected {
-		t.Error("Got different centences.")
+		t.Error("Got different sentences.")
 		t.Errorf("actual\n%v", actual)
 		t.Errorf("expected\n%v", expected)
 	}

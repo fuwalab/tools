@@ -5,26 +5,30 @@ import (
 	"flag"
 	"fmt"
 	"github.com/atotto/clipboard"
+	"github.com/fuwalab/tools/conf"
 	"github.com/fuwalab/tools/db"
 	"github.com/fuwalab/tools/util"
 	"github.com/labstack/gommon/log"
+	"golang.org/x/crypto/ssh/terminal"
 	"os"
+	"syscall"
 )
 
 // Add add account
-func Add() {
-	var serviceName, userName, password string
+func Add(args ...string) {
+	var config = conf.GetAppConf()
+	var serviceName, userName string
 	var params = []string{
 		"s",
 		"u",
-		"p",
+		//"p",
 	}
 
 	f := flag.NewFlagSet(os.Args[0], flag.ExitOnError)
 	f.StringVar(&serviceName, params[0], "", "set service name")
 	f.StringVar(&userName, params[1], "", "set user account")
-	f.StringVar(&password, params[2], "", "set password")
-	f.Parse(os.Args[1:])
+	//f.StringVar(&password, params[2], "", "set password")
+	f.Parse(args[1:])
 
 	if f.NArg() == 1 {
 		f.Usage()
@@ -37,18 +41,31 @@ func Add() {
 
 	validateStringParams(params, f)
 
+	var password []byte
+	if config.Env != "test" {
+		fmt.Print("Enter password: ")
+		pass, err := terminal.ReadPassword(int(syscall.Stdin))
+		if err != nil {
+			log.Fatal(err)
+		}
+		password = pass
+	} else {
+		pass := []byte(os.Getenv("test_password"))
+		password = pass
+	}
+
 	account := db.Account{
 		Name:     util.Encrypt(serviceName),
 		Account:  util.Encrypt(userName),
-		Password: util.Encrypt(password),
+		Password: util.Encrypt(string(password)),
 	}
 
 	// save
-	db.NewRepo(db.Conn()).Save(account)
+	db.NewRepo(db.Conn()).Save(&account)
 }
 
 // Show output account info
-func Show() {
+func Show(args ...string) {
 	var serviceName string
 	var params = []string{
 		"s",
@@ -56,7 +73,7 @@ func Show() {
 
 	f := flag.NewFlagSet(os.Args[0], flag.ExitOnError)
 	f.StringVar(&serviceName, params[0], "", "set service name")
-	f.Parse(os.Args[1:])
+	f.Parse(args[1:])
 
 	if f.NArg() == 1 {
 		f.Usage()
@@ -81,7 +98,7 @@ func Show() {
 }
 
 // CopyPassword copy password to clipboard
-func CopyPassword() {
+func CopyPassword(args ...string) {
 	var serviceName string
 	var params = []string{
 		"s",
@@ -89,7 +106,7 @@ func CopyPassword() {
 
 	f := flag.NewFlagSet(os.Args[0], flag.ExitOnError)
 	f.StringVar(&serviceName, params[0], "", "set service name")
-	f.Parse(os.Args[1:])
+	f.Parse(args[1:])
 
 	if f.NArg() == 1 {
 		f.Usage()

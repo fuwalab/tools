@@ -13,10 +13,11 @@ type Repo struct {
 	db *sql.DB
 }
 
-var config = conf.GetAppConf()
+var config = &conf.AppConf{}
 
 // Conn create a new connection
 func Conn() *sql.DB {
+	config = conf.GetAppConf()
 	db, err := sql.Open("sqlite3", fmt.Sprintf("%s/%s.db", config.ProjectRoot, config.DBName))
 	if err != nil {
 		panic(err)
@@ -52,34 +53,36 @@ type Account struct {
 }
 
 // Save save account
-func (r *Repo) Save(account Account) {
+func (r *Repo) Save(account *Account) {
 	var a Account
 	row := r.db.QueryRow(
 		"SELECT * FROM account WHERE name = ?", &account.Name)
 	err := row.Scan(&a.Name, &a.Account, &a.Password)
 
-	log.Info("error:", err)
+	if err != nil {
+		log.Info("error:", err)
 
-	if err == sql.ErrNoRows {
-		// insert
-		log.Info("insert")
-		_, err := r.db.Exec(
-			"INSERT INTO account (name, account, password) VALUES(?, ?, ?)",
-			&account.Name, &account.Account, &account.Password,
-		)
-		if err != nil {
-			panic(err)
-		}
-	} else {
-		// update
-		log.Info("update")
-		log.Info("account: ", account)
-		_, err := r.db.Exec(
-			"UPDATE account SET account = ?, password = ? WHERE name = ?",
-			&account.Account, &account.Password, &account.Name,
-		)
-		if err != nil {
-			panic(err)
+		if err == sql.ErrNoRows {
+			// insert
+			log.Info("insert")
+			_, err := r.db.Exec(
+				"INSERT INTO account (name, account, password) VALUES(?, ?, ?)",
+				&account.Name, &account.Account, &account.Password,
+			)
+			if err != nil {
+				panic(err)
+			}
+		} else {
+			// update
+			log.Info("update")
+			log.Info("account: ", account)
+			_, err := r.db.Exec(
+				"UPDATE account SET account = ?, password = ? WHERE name = ?",
+				&account.Account, &account.Password, &a.Name,
+			)
+			if err != nil {
+				panic(err)
+			}
 		}
 	}
 }

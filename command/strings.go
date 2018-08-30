@@ -9,7 +9,7 @@ import (
 )
 
 // String string related command
-func String() {
+func String(args ...string) {
 	// check parameters
 	var plaintText, cipherText string
 	var params = []string{
@@ -20,7 +20,7 @@ func String() {
 	f := flag.NewFlagSet(os.Args[0], flag.ExitOnError)
 	f.StringVar(&plaintText, params[0], "", "set plain text")
 	f.StringVar(&cipherText, params[1], "", "set encrypted text")
-	f.Parse(os.Args[1:])
+	f.Parse(args[1:])
 
 	if f.NArg() == 1 {
 		f.Usage()
