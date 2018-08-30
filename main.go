@@ -27,7 +27,7 @@ func main() {
 		return
 	}
 
-	subCommands := map[string]func(){
+	subCommands := map[string]func(args ...string){
 		"AddAccount":   command.Add,
 		"ShowAccount":  command.Show,
 		"CopyPassword": command.CopyPassword,
@@ -40,7 +40,7 @@ func main() {
 		db.NewRepo(db.Conn()).InitDB()
 
 		f := subCommands[c]
-		f()
+		f(args...)
 	} else {
 		log.Info("subcommand ", args[0], " is not exist")
 	}

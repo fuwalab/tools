@@ -1,7 +1,9 @@
 // Package conf contains configurations of toolkit
 package conf
 
-import "os"
+import (
+	"os"
+)
 
 // AppConf Configuration of this project.
 type AppConf struct {

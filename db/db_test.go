@@ -9,17 +9,11 @@ import (
 	"testing"
 )
 
-func init() {
-	conf.SetEnv("test")
-}
-
 func TestMain(m *testing.M) {
+	conf.SetEnv("test")
 	config = conf.GetAppConf()
 	code := m.Run()
 
-	if err := os.Remove(fmt.Sprintf("%s/%s.db", config.ProjectRoot, config.DBName)); err != nil {
-		panic(err)
-	}
 	os.Exit(code)
 }
 
@@ -38,7 +32,7 @@ func TestRepo_Save(t *testing.T) {
 		Account:  "hoge_user",
 		Password: "password",
 	}
-	NewRepo(Conn()).Save(account)
+	NewRepo(Conn()).Save(&account)
 }
 
 func TestRepo_FindAccountByName(t *testing.T) {
