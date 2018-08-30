@@ -9,17 +9,10 @@ import (
 	"testing"
 )
 
-func init() {
-	conf.SetEnv("test")
-}
-
 func TestMain(m *testing.M) {
 	config = conf.GetAppConf()
 	code := m.Run()
 
-	if err := os.Remove(fmt.Sprintf("%s/%s.db", config.ProjectRoot, config.DBName)); err != nil {
-		panic(err)
-	}
 	os.Exit(code)
 }
 
