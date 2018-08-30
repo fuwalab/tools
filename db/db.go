@@ -13,7 +13,7 @@ type Repo struct {
 	db *sql.DB
 }
 
-var config = &conf.AppConf{}
+var config *conf.AppConf
 
 // Conn create a new connection
 func Conn() *sql.DB {

@@ -9,6 +9,8 @@ import (
 	"testing"
 )
 
+var config *conf.AppConf
+
 func TestMain(m *testing.M) {
 	conf.SetEnv("test")
 	db.NewRepo(db.Conn()).InitDB()
@@ -18,7 +20,7 @@ func TestMain(m *testing.M) {
 }
 
 func TestUsage(t *testing.T) {
-	config := conf.GetAppConf()
+	config = conf.GetAppConf()
 	// no argument
 	cmd := exec.Command("go",
 		"run", config.ProjectRoot+"/main.go",

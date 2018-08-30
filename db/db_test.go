@@ -10,6 +10,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
+	conf.SetEnv("test")
 	config = conf.GetAppConf()
 	code := m.Run()
 

@@ -1,9 +1,9 @@
 package command
 
 import (
-	"fmt"
 	"github.com/atotto/clipboard"
 	"github.com/fuwalab/tools/conf"
+	"github.com/fuwalab/tools/db"
 	_ "github.com/mattn/go-sqlite3"
 	"os"
 	"os/exec"
@@ -15,11 +15,9 @@ var config *conf.AppConf
 func TestMain(m *testing.M) {
 	conf.SetEnv("test")
 	config = conf.GetAppConf()
+	db.NewRepo(db.Conn()).InitDB()
 	code := m.Run()
 
-	if err := os.Remove(fmt.Sprintf("%s/%s.db", config.ProjectRoot, config.DBName)); err != nil {
-		panic(err)
-	}
 	os.Exit(code)
 }
 
@@ -35,11 +33,6 @@ func TestAdd(t *testing.T) {
 }
 
 func TestShow(t *testing.T) {
-	params := []string{
-		"ShowAccount",
-		"-s", "sample",
-	}
-	Show(params...)
 	cmd := exec.Command("go", "run", config.ProjectRoot+"/main.go", "ShowAccount", "-s", "sample")
 	err := cmd.Run()
 	if err != nil {
@@ -61,13 +54,13 @@ func TestCopyPassword(t *testing.T) {
 	// Note: Not sure why it requires `TestAdd()` again for Travis CI.
 	TestAdd(t)
 	expected := "password"
-	cmd := exec.Command("go", "run", config.ProjectRoot+"/main.go", "CopyPassword", "-s", "sample")
-	result, err := cmd.CombinedOutput()
 
-	if err != nil {
-		t.Errorf("commandline output: %v", string(result))
-		t.Errorf("commandline error: %v", err)
+	params := []string{
+		"CopyPassword",
+		"-s", "sample",
 	}
+
+	CopyPassword(params...)
 
 	actual, _ := clipboard.ReadAll()
 
@@ -78,13 +71,5 @@ func TestCopyPassword(t *testing.T) {
 
 	if actual != expected {
 		t.Errorf("Not same value.\nactual: %v, expected: %v", actual, expected)
-	}
-
-	cmd = exec.Command("go", "run", config.ProjectRoot+"/main.go", "CopyPassword", "-s", "sample_user")
-	result, err = cmd.CombinedOutput()
-
-	if err == nil {
-		t.Errorf("commandline output: %v", string(result))
-		t.Errorf("commandline error: %v", err)
 	}
 }
